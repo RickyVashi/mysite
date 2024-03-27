@@ -2,56 +2,57 @@
 <div class="w-full h-screen flex justify-center items-center bg-[#222431]">
     <main>
         <div class="left-side"></div>
+
         <div class="right-side">
-            <h4 class="text-2xl mb-2">Sign Up</h4>
-            <div class="or"></div>
+            <div>
+                <h4 class="text-2xl mb-2">Forget Password</h4>
+                <div class="or"></div>
 
-            <label for="fullName">Full Name</label>
-            <input type="text" placeholder="Enter Full Name" v-model="name" name="name" required />
+                <label for="email">Email</label>
+                <input type="text" placeholder="Enter Email" v-model="email" name="email" required />
 
-            <label for="email">Email</label>
-            <input type="text" placeholder="Enter Email" v-model="email" name="email" required />
+                <label for="password">New Password</label>
+                <input type="password" placeholder="Enter New Password" v-model="password" name="password" required />
 
-            <label for="password">Password</label>
-            <input type="password" placeholder="Enter Password" v-model="password" name="password" required />
-
-            <!-- Add additional fields as needed -->
-
-            <button type="submit" class="login-btn" @click="hideSignUp">Sign up</button>
-            <div class="links">
-                <a href="/login">Already have an account? Log in</a>
+                <button type="submit" class="login-btn" @click="forgetPwd">Forget</button>
+                <div class="links">
+                    <a href="/login">Login</a>
+                    <a href="/register">Do not have an account?</a>
+                </div>
             </div>
         </div>
+
     </main>
 
 </div>
 </template>
 
+    
 <script>
+//import router from '@/router/route';
+import axios from 'axios';
 import router from '../router/route'
-import axios from 'axios'
 
 export default {
     data() {
         return {
-            name: null,
             email: null,
             password: null,
-
+            attendanceRecords: [],
+            attendanceTakenToday: null
         }
     },
+
     methods: {
-        async hideSignUp() {
+        async forgetPwd() {
 
             const user = {
-                name: this.name,
                 email: this.email,
                 password: this.password
             }
 
             try {
-                const obj = await axios.post('http://localhost:1600/register', user)
-                console.log(obj);
+                const obj = await axios.post('http://localhost:1600/forget', user)
 
                 this.$vs.notify({
                     color: 'success',
@@ -60,7 +61,7 @@ export default {
                     text: `${obj.data}`
                 })
 
-                router.push('/login');
+                router.push('/login')
 
             } catch (error) {
                 if (error.response) {
@@ -72,28 +73,21 @@ export default {
                     })
                 }
             }
-
         },
-        login() {
-            router.push('/login')
+        register() {
+            router.push('/signup')
+        },
+        forget() {
+            router.push('/forget')
         }
     }
-}
+};
 </script>
 
+    
 <style scoped>
 /* Add your existing styles here */
 @import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap");
-
-
-/* Snow */
-
-#particles-js {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-}
 
 main {
     display: grid;

@@ -24,7 +24,6 @@ export default createStore({
           state.todos[index] = updatedTodo;
         }
       }
-      
   },
   actions: {
     addTodo({ commit }, todo) {

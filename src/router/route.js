@@ -19,32 +19,58 @@ import TailWind from '@/components/Project/TailWind.vue';
 import ToDo from '@/components/Project/ToDo.vue';
 import VueX from '@/components/Project/VueX.vue';
 import WeeklyReport from '@/components/Project/WeeklyReport.vue';
-// import SignUp from '../components/SignUp.vue';
-// import LogIn from '../components/LogIn.vue';
+import LogIn from '@/components/LogIn.vue';
+import SignUp from '@/components/SignUp.vue';
+import MainApp from '../components/MainApp.vue';
+import FullApp from '../components/FullApp.vue';
+import ForGet from '@/components/ForGet.vue';
+import OFetch from '@/components/Project/OFetch.vue';
+import ProfilePage from '@/components/ProfilePage.vue';
+import MommentJs from '@/components/Project/MommentJs.vue';
+import AudioRecorder from '@/components/Project/AudioRecorder.vue';
+
 const routes = [
-  { path: '/', component: Dashboard },
-  { path: '/dashboard', component: Dashboard },
-  { path: '/myschedule', component: MySchedule },
-  { path: '/projects', component: ProjectS },
-  { path: '/projects/ApexCharts', component: ApexCharts },
-  { path: '/projects/ChatApp', component: ChatApp },
-  { path: '/projects/CurrencyTransfer', component: CurrencyTransfer },
-  { path: '/projects/InfiniteScroll', component: InfiniteScroll },
-  { path: '/projects/InfiObs', component: InfiObse },
-  { path: '/projects/VeeForm', component: VeeForm },
-  { path: '/projects/VMask', component: VMask },
-  { path: '/projects/MultiSelect', component: MultiSelect },
-  { path: '/projects/DoubleList', component: DoubleList },
-  { path: '/projects/DropZone', component: DropZone },
-  { path: '/projects/API_Sorting', component: API_Sorting },
-  { path: '/projects/TailWind', component: TailWind },
-  { path: '/projects/ToDo_App', component: ToDo },
-  { path: '/projects/VueX', component: VueX },
-  { path: '/calendar', component: CalenDar },
-  { path: '/addProject', component: AddProject },
-  { path: '/WeeklyReport', component: WeeklyReport },
-  // { path: '/register', compoment : SignUp},
-  // { path: '/logIn', component : LogIn}
+  {
+    path: '',
+    component: MainApp,
+    children: [
+      {path : '', redirect : '/dashboard' },
+      { path: '/dashboard', name: 'dashboard', component: Dashboard },
+      { path: '/myschedule', name: 'myschedule', component: MySchedule },
+      { path: '/projects', name: 'projects', component: ProjectS },
+      { path: '/projects/ApexCharts', name: 'apexCharts', component: ApexCharts },
+      { path: '/projects/ChatApp', name: 'chatApp', component: ChatApp },
+      { path: '/projects/CurrencyTransfer', name: 'currencyTransfer', component: CurrencyTransfer },
+      { path: '/projects/InfiniteScroll', name: 'infiniteScroll', component: InfiniteScroll },
+      { path: '/projects/InfiObs', name: 'infiObs', component: InfiObse },
+      { path: '/projects/VeeForm', name: 'veeForm', component: VeeForm },
+      { path: '/projects/VMask', name: 'vMask', component: VMask },
+      { path: '/projects/MultiSelect', name: 'multiSelect', component: MultiSelect },
+      { path: '/projects/DoubleList', name: 'doubleList', component: DoubleList },
+      { path: '/projects/DropZone', name: 'dropZone', component: DropZone },
+      { path: '/projects/API_Sorting', name: 'apiSorting', component: API_Sorting },
+      { path: '/projects/TailWind', name: 'tailWind', component: TailWind },
+      { path: '/projects/ToDo_App', name: 'toDoApp', component: ToDo },
+      { path: '/projects/VueX', name: 'vuex', component: VueX },
+      { path: '/projects/ofetch', name: 'ofetch', component: OFetch },
+      { path: '/projects/AudioRecorder', name: 'AudioRecorder', component: AudioRecorder },
+      { path: '/projects/MommentJs', name: 'MommentJ', component: MommentJs },
+      { path: '/calendar', name: 'calendar', component: CalenDar },
+      { path: '/addProject', name: 'addProject', component: AddProject },
+      { path: '/WeeklyReport', name: 'weeklyReport', component: WeeklyReport },
+      { path: '/ProfilePage', name: 'ProfilePage', component:ProfilePage},
+    ]
+  },
+  {
+    path: '',
+    component: FullApp,
+    children: [
+      { path: '/signup',name:'Signup', component: SignUp },
+      { path: '/login', name :'Login',component: LogIn },
+      { path : '/forget', name: 'Forget', component : ForGet}
+    ]
+  }
+  
 ];
 
 const router = createRouter({
@@ -53,4 +79,32 @@ const router = createRouter({
 });
 
 
+router.beforeEach((to,from,next) => {
+
+  if(to.name == 'Login'){
+    const token = window.localStorage.getItem('token');
+    if(token){
+      next('/dashboard');
+    }
+
+  }
+  if (!['Login', 'Signup', 'Forget'].includes(to.name)) {
+    
+    const token = window.localStorage.getItem('token');
+
+    if (!token) {
+      next('/login'); // Redirect to login only if there's no token
+    }else{
+      next();
+    }
+  } 
+  else{
+    next(); // Allow access to login, register, and forget routes
+  }
+   
+});
+
+
+
 export default router;
+

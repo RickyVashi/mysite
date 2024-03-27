@@ -9,7 +9,7 @@
     </div>
 
     <div v-if="showForm" class="add flex justify-center items-center mt-6">
-        <div class="mx-auto w-1/2">
+        <div class="mx-8 md:w-1/2">
             <form class="bg-slate-200 shadow-lg rounded-lg px-8 pt-6 pb-8 mb-4" @submit.prevent="submitForm">
                 <!-- Title Field -->
                 <div class="mb-4">

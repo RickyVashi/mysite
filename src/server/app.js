@@ -14,6 +14,8 @@ const port = 1600;
 
 connectToMongo();
 
+var registerRouter = require('./routes/register');
+var forgotUser = require('./routes/forget');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var addTask = require('./routes/project')
@@ -51,7 +53,12 @@ function verifyToken(req, res, next) {
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-app.use(cors());
+app.use(cors({
+  "origin": "*",
+  "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
+  "preflightContinue": false,
+  "optionsSuccessStatus": 204
+}));
 
 app.use(session({
   secret: 'your-secret-key',
@@ -69,7 +76,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use((req, res, next) => {
-  if (req.method === 'POST' && req.path === '/submit') {
+  if (req.method === 'POST' && (req.path === '/submit' || req.path === '/register' || req.path === '/forget')) {
     next(); // Skip verification for POST /submit route
   } else {
     verifyToken(req, res, next); // Apply verifyToken middleware for all other routes
@@ -77,8 +84,8 @@ app.use((req, res, next) => {
 });
 
 
-
-
+app.use('/',registerRouter);
+app.use('/',forgotUser);
 app.use('/', indexRouter);
 app.use('/', usersRouter);
 app.use('/', addTask);
@@ -86,7 +93,7 @@ app.use('/', add);
 app.use('/', book);
 
 
-app.listen(port, () => {
+app.listen(port,() => {
   console.log(`Port is ${port}`)
 })
 

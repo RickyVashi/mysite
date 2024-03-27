@@ -7,6 +7,8 @@ const jwt = require('jsonwebtoken');
 router.use(express.json());
 
 router.get('/projects', async (req, res) => {
+    const role = req.headers['teacher-flag'] === 'true';
+    console.log(role);
     const userToken = req.headers['authorization'];
 
     if (userToken) {
@@ -19,14 +21,20 @@ router.get('/projects', async (req, res) => {
                 return res.status(401).json({ error: 'Unauthorized' });
             } else {
                 const userData = decoded.user;
-                console.log(userData.name);
-
+                
                 try {
-                    const projects = await Project.find({ userName: userData.name });
-
+                    let projects;
+                    if(!role){
+                        projects = await Project.find({ userName: userData.name });
+                    }
+                    else{
+                        projects = await Project.find();
+                    }
+                    
                     if (!projects || projects.length === 0) {
                         return res.status(402).json({ error: 'No projects available for this user' });
                     } else {
+                        console.log("Here");
                         return res.json(projects);
                     }
                 } catch (error) {
@@ -59,6 +67,7 @@ router.post('/addproject', async (req, res) => {
                 return res.status(401).json({ error: 'Unauthorized' });
             } else {
                 // Token is valid, and decoded contains the payload
+                console.log(decoded);
                 userName = decoded.user.name; // Decoded JWT payload
                 console.log(userName);
             }

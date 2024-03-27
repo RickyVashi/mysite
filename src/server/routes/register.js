@@ -7,12 +7,12 @@ router.get('/register', function(req, res) {
 });
 
 router.post('/register', async function(req, res) {
+    console.log("I am here");
     const { name, email, password } = req.body;
 
     try {
         if (!name || !email || !password) {
-            req.flash('message', 'Missing registration details');
-            return res.redirect('/register');
+            return res.status(400).send({ message: 'Missing email or password or name' });
         }
 
         // Check if the email is already in use
@@ -20,24 +20,17 @@ router.post('/register', async function(req, res) {
 
         if (existingUser) {
             // Email is already in use, set a flash message
-            req.flash('message', 'Email is already in use.');
-            return res.redirect('/register');
+            return res.status(400).send({ message: 'Email is alredy use by someone' });
         }
 
         // Create a new user in MongoDB
         const newUser = new User({ name, email, password });
         await newUser.save();
 
-        req.flash('message', 'Register SuccessFully');
-
-        // Registration successful, you might want to redirect to a login page
-        return res.redirect('/'); // Change '/login' to the actual login route
-
+        return res.send(`${name} , Your Registation is successfull`);;
     } catch (error) {
-        console.error('Error during registration:', error);
-        // Handle other errors (e.g., render an error page)
-        req.flash('message', 'An error occurred during registration.');
-        return res.redirect('/register');
+
+        return res.status(400).send({ error });
     }
 });
 

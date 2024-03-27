@@ -1,40 +1,59 @@
 <template>
-<div class="flex flex-row items-center justify-between h-14 px-4 bg-[#F1FADA]">
+<div class="flex flex-row items-center  justify-between h-14 px-4 bg-[#F1FADA]">
 
-    <div class="flex items-center">
+    <div class="items-center hidden md:flex">
         <input type="text" placeholder="Search..." class="px-2 py-1 rounded-md border border-gray-300 focus:outline-none focus:border-blue-500">
     </div>
 
-    <div class="flex flex-grow items-center justify-end space-x-4">
-        <button @click="route" class="text-gray-700 hover:text-blue-500" :class="flag == 'true' ? 'notalert' : 'alert'">
+    <div class="flex flex-grow items-center justify-start space-x-4 md:hidden">
+        <button class="text-gray-700 hover:text-blue-500" @click="showMenu">
+            <i v-if="!show" class="material-icons">menu</i>
+            <i v-else class="material-icons">close</i>
+        </button>
+    </div>
+
+    <div class="flex flex-row items-center justify-end space-x-4">
+        <button @click="route" class="text-gray-700 hover:text-blue-500" :class="flag == 'false' ? 'notalert' : 'alert'">
             <i class="material-icons">notifications</i>
         </button>
 
         <button class="text-gray-700 hover:text-blue-500">
             <i class="material-icons">message</i>
         </button>
-
+        <button @click="routeProfile" class="text-gray-700 block hover:text-blue-500 md:hidden">
+            <i class="material-icons">
+                account_circle</i>
+        </button>
         <button class="text-gray-700 hover:text-blue-500" @click="handleLogin">
-
             <i class="material-icons">exit_to_app</i>
-
         </button>
     </div>
+
+</div>
+<div v-if="show">
+    <SideBar />
 </div>
 </template>
 
-  
 <script>
 import router from '../router/route'
+import SideBar from './SideBar.vue'
 export default {
-    data(){
-        return{
-            flag : null,
+    data() {
+        return {
+            flag: null,
+            show: false,
         }
     },
-    mounted(){
+    components: {
+        SideBar
+    },
+
+    async mounted() {
+
         this.flag = window.localStorage.getItem('flag');
-       
+        console.log(this.flag);
+
     },
 
     methods: {
@@ -45,9 +64,19 @@ export default {
                 })
             }
         },
+        routeProfile() {
+            
+                router.push({
+                    path: '/ProfilePage'
+                })
+            
+        },
         handleLogin() {
-            window.localStorage.clear() ;
+            window.localStorage.clear();
             location.reload();
+        },
+        showMenu() {
+            this.show = !this.show;
         }
     },
 

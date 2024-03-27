@@ -11,7 +11,7 @@
     </div>
 
     <!-- Calendar component -->
-    <div class="my-4 mx-10 shadow-lg" v-if="showCalendar">
+    <div class="pl-2  pr-2 md:mx-10 shadow-lg" v-if="showCalendar">
         <VCalendar :attributes="calendarAttributes" expanded min-date="2024-01-10" max-date="2024-04-22" :initial-page="{ month: 3 ,  year : 2024}" />
     </div>
 </div>
@@ -92,7 +92,7 @@ export default {
                 } catch (error) {
                     if (error.response && error.response.status === 401) {
                         window.localStorage.clear();
-                        location.reload();
+                        window.reload();
                     } else {
                         console.error("Error:", error);
                     }
