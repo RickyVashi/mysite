@@ -20,7 +20,7 @@ import VueApexCharts from "vue3-apexcharts";
 
 const app = createApp(App);
 
-app.config.globalProperties.$URL = "https://d5a6-2405-201-200b-d34f-4073-a902-4f32-e213.ngrok-free.app";
+app.config.globalProperties.$URL = "http://localhost:1600";
 
 app.directive('mask', mask);
 app.use(VCalendar);
