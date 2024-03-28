@@ -55,7 +55,7 @@ export default {
     methods: {
         async fetchProjects() {
             try {
-                const response = await this.$axios.get('http://localhost:1600/projects');
+                const response = await this.$axios.get(`${this.$URL}/projects`);
 
                 this.projects = response.data.map(project => ({
                     ...project,

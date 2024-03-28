@@ -1,11 +1,15 @@
+require('dotenv').config();
+
 const mongoose = require('mongoose');
-const mongoURI = "mongodb://localhost:27017"
+const mongoURI = process.env.URL
+//mongodb+srv://RickyVashi:<password>@mywebsite.35womig.mongodb.net/
 
 const connectToMongo = () => {
-    mongoose.connect("mongodb://127.0.0.1:27017/Routine", {
+    mongoose.connect(mongoURI, {
     }).then(() => {
         console.log("Connection Done");
     }).catch((e) => {
+        console.log(e);
         console.log("No Connection");
     });
 }

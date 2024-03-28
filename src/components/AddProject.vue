@@ -78,7 +78,7 @@ export default {
             this.showForm = !this.showForm;
         },
         submitForm() {
-            this.$axios.post('http://localhost:1600/addproject', this.formData)
+            this.$axios.post(`${this.$URL}/addproject`, this.formData)
                 .then(response => {
                     console.log("Hello", response);
                     this.clearForm();

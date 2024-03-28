@@ -66,7 +66,7 @@ export default {
     async beforeMount() {
         this.login = window.localStorage.getItem('token');
 
-        const response = await this.$axios.get('http://localhost:1600/dates');
+        const response = await this.$axios.get(`${this.$URL}/dates`);
         this.attendanceRecords = response.data;
         this.attendanceTakenToday = this.attendanceRecords.some(record => record.date === this.today);
 

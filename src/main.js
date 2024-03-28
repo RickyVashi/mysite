@@ -14,8 +14,13 @@ import VueApexCharts from "vue3-apexcharts";
 //import vue3GoogleLogin from 'vue3-google-login'
 
 
+// Set a global property to access environment variables
+
+
 
 const app = createApp(App);
+
+app.config.globalProperties.$URL = "https://d5a6-2405-201-200b-d34f-4073-a902-4f32-e213.ngrok-free.app";
 
 app.directive('mask', mask);
 app.use(VCalendar);

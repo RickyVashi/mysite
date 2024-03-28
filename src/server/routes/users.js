@@ -10,7 +10,7 @@ router.get('/users', async (req, res) => {
         console.log("Hello");
         // Fetch all users from the database
         const users = await User.find();
-        
+        console.log(users);
         // If there are no users, respond with 404 Not Found
         if (!users || users.length === 0) {
             return res.status(404).send({ message: 'No users found' });

@@ -67,7 +67,7 @@ export default {
             email: this.email,
 
         }
-        this.$axios.post('http://localhost:1600/editProfile', obj)
+        this.$axios.post(`${this.$URL}/editProfile`, obj)
         .then(response => {
                 console.log(response);
                 window.localStorage.setItem("user",this.name);

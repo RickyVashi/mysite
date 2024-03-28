@@ -82,7 +82,7 @@ export default {
                     present
                 };
                 try {
-                    await this.$axios.post('http://localhost:1600/add', attendanceRecord);
+                    await this.$axios.post(`${this.$URL}/add`, attendanceRecord);
                     console.log('Attendance record sent successfully');
                     this.attendanceTakenToday = true;
                     this.showCalendar = true;
@@ -104,7 +104,7 @@ export default {
         async fetchAttendanceRecords() {
             try {
 
-                const response = await this.$axios.get('http://localhost:1600/dates');
+                const response = await this.$axios.get(`${this.$URL}/dates`);
                 this.attendanceRecords = response.data;
                 this.attendanceTakenToday = this.attendanceRecords.some(record => record.date === this.today);
                 

@@ -147,7 +147,7 @@ export default {
             this.teacherFlag = true;
         }
         try {
-            const response = await this.$axios.get('http://localhost:1600/count');
+            const response = await this.$axios.get(`${this.$URL}/count`);
 
             this.presentDays = response.data.presentTrueCount;
             this.absentDays = response.data.presentFalseCount;
@@ -179,7 +179,7 @@ export default {
                     return;
                 }
                 // Make an HTTP request to fetch data for the selected month
-                const response = await this.$axios.get(`http://localhost:1600/count/${this.selectedMonth}`);
+                const response = await this.$axios.get(`${this.$URL}/count/${this.selectedMonth}`);
                 // Assuming the response contains data for chart
                 this.pDay = response.data.presentTrueCount;
                 this.aDay = response.data.presentFalseCount;

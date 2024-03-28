@@ -52,7 +52,7 @@ export default {
             }
 
             try {
-                const obj = await axios.post('http://localhost:1600/forget', user)
+                const obj = await axios.post(`${this.$URL}/forget`, user)
 
                 this.$vs.notify({
                     color: 'success',

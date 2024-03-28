@@ -55,9 +55,11 @@
         }
   
         try {
-          const obj = await axios.post('http://localhost:1600/submit', user)
-
- 
+         
+          const obj = await axios.post(`${this.$URL}/submit`, user)
+          //const obj = await axios.post('http://192.168.50.108:1600/submit', user);
+          //const obj = await axios.post('https://d5a6-2405-201-200b-d34f-4073-a902-4f32-e213.ngrok-free.app/submit', user);
+          
 
           this.$vs.notify({
             color : 'success',

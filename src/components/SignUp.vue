@@ -50,7 +50,7 @@ export default {
             }
 
             try {
-                const obj = await axios.post('http://localhost:1600/register', user)
+                const obj = await axios.post(`${this.$URL}/register`, user)
                 console.log(obj);
 
                 this.$vs.notify({

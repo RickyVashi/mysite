@@ -8,7 +8,7 @@ router.use(express.json());
 
 router.get('/projects', async (req, res) => {
     const role = req.headers['teacher-flag'] === 'true';
-    console.log(role);
+    
     const userToken = req.headers['authorization'];
 
     if (userToken) {
