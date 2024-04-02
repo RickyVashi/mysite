@@ -1,11 +1,11 @@
 require('dotenv').config();
 
 const mongoose = require('mongoose');
-const mongoURI = process.env.URL
+
 //mongodb+srv://RickyVashi:<password>@mywebsite.35womig.mongodb.net/
 
 const connectToMongo = () => {
-    mongoose.connect(mongoURI, {
+    mongoose.connect("mongodb://127.0.0.1:27017/Routine", {
     }).then(() => {
         console.log("Connection Done");
     }).catch((e) => {

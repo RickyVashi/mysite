@@ -28,7 +28,7 @@ import OFetch from '@/components/Project/OFetch.vue';
 import ProfilePage from '@/components/ProfilePage.vue';
 import MommentJs from '@/components/Project/MommentJs.vue';
 import AudioRecorder from '@/components/Project/AudioRecorder.vue';
-
+import TryExample from '@/components/Project/TryExample.vue';
 const routes = [
   {
     path: '',
@@ -54,6 +54,7 @@ const routes = [
       { path: '/projects/VueX', name: 'vuex', component: VueX },
       { path: '/projects/ofetch', name: 'ofetch', component: OFetch },
       { path: '/projects/AudioRecorder', name: 'AudioRecorder', component: AudioRecorder },
+      { path: '/projects/TryExample', name: 'TryExample', component: TryExample},
       { path: '/projects/MommentJs', name: 'MommentJ', component: MommentJs },
       { path: '/calendar', name: 'calendar', component: CalenDar },
       { path: '/addProject', name: 'addProject', component: AddProject },

@@ -96,7 +96,7 @@ export default {
                
                 const m = month.substring(0, 3);
                 const fileName = `${m}_Week${week}.pdf`;
-                const reportUrl = `${this.$URL}/${fileName}`; // Adjust the URL based on your backend setup
+                const reportUrl = `${this.$URL}/weekly-reports/${fileName}`; // Adjust the URL based on your backend setup
                 const response = await this.$axios.get(reportUrl, {
                     responseType: 'blob'
                 });

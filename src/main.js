@@ -11,6 +11,8 @@ import Vuesax from 'vuesax3';
 import 'vuesax3/dist/vuesax.css';
 import axiosPlugin from './axios';
 import VueApexCharts from "vue3-apexcharts";
+//import VueFeather from 'vue-feather';
+import { FeatherIcon } from 'vue-feather-icons';
 //import vue3GoogleLogin from 'vue3-google-login'
 
 
@@ -29,6 +31,10 @@ app.use(store);
 app.use(Vuesax);
 app.use(VueApexCharts);
 app.use(axiosPlugin);
+
+
+app.component('FeatherIcon', FeatherIcon);
+
 
 app.mount('#app');
 
