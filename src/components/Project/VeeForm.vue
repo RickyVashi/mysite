@@ -2,8 +2,6 @@
     <h1 class="font-semibold text-lg bg-gray-100 p-4 my-12 mx-12 ">Draggable List</h1>
     <div class="container mx-auto w-3/5">
         <div class="form-container bg-gray-100 shadow-lg rounded px-8 pt-10 pb-8 mb-4 h-auto">
-         
-    
             <Form @submit="submitForm" :validation-schema="schema" class="mb-4">
                 <div class="mb-4">
                     <label for="email" class="block text-gray-700 text-sm font-bold mb-2">Email:</label>
@@ -64,7 +62,7 @@
   import { Form, Field, ErrorMessage } from 'vee-validate';
   
   const schema = yup.object().shape({
-      email: yup.string().required('Email is required').email('Invalid email format'),
+      email:  yup.string().required('Email is required'),
       password: yup.string().required('Password is required and it should at least 8 characters').min(8, 'Password must be at least 8 characters long'),
       gender: yup.string().required('Gender is required'),
       hobbies: yup.array().min(1, 'At least one hobby must be selected').required("Select at Least One"),

@@ -13,10 +13,10 @@
                 <span class="select text-[#938af3] cursor-pointer font-semibold text-lg" role="button" @click="selectFiles">Select files to upload</span>
             </div>
             <div>
-                <span class="select text-[#938af3] cursor-pointer">File format : .mp3 .wav</span>
+                <span class="select text-[#938af3] cursor-pointer">File format: .mp3 .wav</span>
             </div>
             <div>
-                <span class="select text-[#938af3] cursor-pointer">Max size : 700MB</span>
+                <span class="select text-[#938af3] cursor-pointer">Max size: 700MB</span>
             </div>
         </div>
         <input name="file" type="file" class="file hidden" ref="fileInput" :multiple="allowMultiple" @change="onFileSelect" />

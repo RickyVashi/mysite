@@ -7,7 +7,6 @@ const secretKey = "NodeJS";
 
 router.get('/users', async (req, res) => {
     try {
-        console.log("Hello");
         // Fetch all users from the database
         const users = await User.find();
         console.log(users);
@@ -53,5 +52,21 @@ router.post('/submit', async (req, res) => {
        res.status(500).send("Internal Server Error");
     }
 });
+
+
+
+router.post('/user', async (req, res) => {
+    const { email} = req.body;
+    try {
+        const user = await User.findOne({ email });
+        if (!user) {
+            return res.send({ message: 'True' });
+        }
+        res.send({ message: 'False' })
+    } catch (error) {
+       res.status(500).send("Internal Server Error");
+    }
+});
+
 
 module.exports = router;

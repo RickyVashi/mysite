@@ -4,7 +4,13 @@ export default createStore({
   state: {
     todos: [],
     flag : null,
-  },
+    formData: {
+      email: '',
+      gender: '',
+      hobbies: ['Reading']
+    },
+    validationSchema: null
+  },  
   mutations: {
     ADD_TODO(state, todo) {
       state.todos.push(todo);
@@ -23,6 +29,12 @@ export default createStore({
         if (index !== -1) {
           state.todos[index] = updatedTodo;
         }
+      },
+      UPDATE_FORM_DATA(state, formData) {
+        state.formData = formData;
+      },
+      SET_VALIDATION_SCHEMA(state, schema) {
+        state.validationSchema = schema;
       }
   },
   actions: {
@@ -37,10 +49,18 @@ export default createStore({
     },
     editTodo({ commit }, updatedTodo) {
       commit('EDIT_TODO', updatedTodo);
+    },
+    updateFormData({ commit }, formData) {
+      commit('UPDATE_FORM_DATA', formData);
+    } ,
+    setValidationSchema({ commit }, schema) {
+      commit('SET_VALIDATION_SCHEMA', schema);
     }
   },
   getters: {
     allTodos: state => state.todos.filter(todo => !todo.completed),
     completedTodos: state => state.todos.filter(todo => todo.completed),
+    formData: state => state.formData,
+    validationSchema: state => state.validationSchema
   }
 });
