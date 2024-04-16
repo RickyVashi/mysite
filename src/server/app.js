@@ -61,7 +61,7 @@ app.use(session({
 
 // Connect flash
 app.use(flash());
-app.use('/weekly-reports', express.static(path.join(__dirname, 'WeeklyReports')));
+app.use('/weekly-reports', express.static(path.join(__dirname, 'Weekly Reports')));
 
 app.use(logger('dev'));
 app.use(express.json());

@@ -7,8 +7,15 @@ export default createStore({
     formData: {
       email: '',
       gender: '',
-      hobbies: ['Reading']
+      hobbies: ["Reading"]
     },
+    formData2: {
+      email: '',
+      gender: '',
+      hobbies: []
+    },
+    socketInstance: null,
+    messages : [],
     validationSchema: null
   },  
   mutations: {

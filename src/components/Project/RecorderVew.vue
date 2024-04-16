@@ -251,42 +251,5 @@ input[type="range"]::-ms-track {
     background: transparent;
 }
 </style>
-<!-- <template>
-    <div>
-      <vue-dropzone v-bind="dropzoneOptions" ref="dropzone">
-        <div class="dz-message">
-          <p>Drop files here or click to upload.</p>
-        </div>
-      </vue-dropzone>
-    </div>
-  </template>
-  
-  <script>
 
-  import VueDropzone from 'vue2-dropzone';
-  
-  export default {
-    components: {
-      VueDropzone,
-    },
-    data() {
-      return {
-        dropzoneOptions: {
-          url: '/upload',
-          maxFilesize: 5, // MB
-          acceptedFiles: 'image/*',
-          dictDefaultMessage: 'Drop files here to upload',
-        },
-        dropzone: null,
-      };
-    },
-    mounted() {
-      this.dropzone = this.$refs.dropzone.$el;
-    },
-  };
-  </script>
-  
-  <style>
-  /* Add your dropzone styles here */
-  </style> -->
   

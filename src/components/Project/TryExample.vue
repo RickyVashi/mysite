@@ -63,6 +63,7 @@ export default {
             fieldErrors[err.path] = err.message;
           });
           this.errors = fieldErrors;
+          console.log(this.errors);
         } else {
           console.log('Validation error:', error.message);
         }
@@ -78,9 +79,7 @@ export default {
 
 
 
-
-<!-- 
-  <template>
+  <!-- <template>
     <div>
       <RecorderVew id="1" audioSrc="https://content.voitex.com/index.php/api/library/playFile/36_02272024_08473908005200.wav"></RecorderVew>
       <RecorderVew></RecorderVew>
@@ -101,6 +100,6 @@ export default {
          FormData
       }
   }
-  </script> -->
+  </script>  -->
 
-  
+ 

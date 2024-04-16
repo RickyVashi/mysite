@@ -2,7 +2,7 @@
 <div class="flex flex-row items-center  justify-between h-14 px-4 bg-[#F1FADA]">
 
     <div class="items-center hidden md:flex">
-        <input type="text" placeholder="Search..." class="px-2 py-1 rounded-md border border-gray-300 focus:outline-none focus:border-blue-500">
+        <input type="text" placeholder="Search..." class="manual-search-input px-2 py-1 rounded-md border border-gray-300 focus:outline-none focus:border-blue-500">
     </div>
 
     <div class="flex flex-grow items-center justify-start space-x-4 md:hidden">
@@ -17,7 +17,7 @@
             <i class="material-icons">notifications</i>
         </button>
 
-        <button class="text-gray-700 hover:text-blue-500">
+        <button class="text-gray-700 hover:text-blue-500" @click="showRoute">
             <i class="material-icons">message</i>
         </button>
         <button @click="routeProfile" class="text-gray-700 block hover:text-blue-500 md:hidden">
@@ -54,8 +54,13 @@ export default {
         this.flag = window.localStorage.getItem('flag');
         console.log(this.flag);
 
+        // Add event listener to capture keypress event
+        window.addEventListener('keydown', this.handleKeyPress);
     },
-
+    beforeUnmount() {
+        // Remove event listener when component is destroyed
+        window.removeEventListener('keydown', this.handleKeyPress);
+    },
     methods: {
         route() {
             if (!this.$store.state.flag) {
@@ -64,8 +69,14 @@ export default {
                 })
             }
         },
-        routeProfile() {
+        showRoute() {
             
+                router.push({
+                    path: '/chatapp'
+                })
+            
+        },
+        routeProfile() {
                 router.push({
                     path: '/ProfilePage'
                 })
@@ -77,11 +88,27 @@ export default {
         },
         showMenu() {
             this.show = !this.show;
+        },
+        handleKeyPress(event) {
+            // Check if Ctrl + F is pressed
+            if (event.ctrlKey && event.key === 'f') {
+                // Prevent default browser search behavior
+                event.preventDefault();
+                // Focus on the manual search bar
+                this.focusManualSearchBar();
+            }
+        },
+        focusManualSearchBar() {
+            // Focus on the manual search bar input element
+            const searchBar = document.querySelector('.manual-search-input');
+            if (searchBar) {
+                searchBar.focus();
+            }
         }
     },
-
 }
 </script>
+
 
 <style scoped>
 .alert {

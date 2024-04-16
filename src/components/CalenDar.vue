@@ -11,8 +11,23 @@
     </div>
 
     <!-- Calendar component -->
-    <div class="pl-2  pr-2 md:mx-10 shadow-lg" v-if="showCalendar">
+    <div class="pl-2  pr-2 md:mx-10 " v-if="showCalendar">
         <VCalendar :attributes="calendarAttributes" expanded min-date="2024-01-10" max-date="2024-04-22" :initial-page="{ month: 3 ,  year : 2024}" />
+        <div class="labels p-8 flex justify-end">
+            <div class="first flex px-4">
+                <div class="h-6 w-6 rounded-full bg-red-500"></div><p class="font-semibold mx-2">Absent</p>
+            </div>
+            <div class="first flex px-4">
+                <div class="h-6 w-6 rounded-full bg-green-500"></div><p class="font-semibold mx-2">Present</p>
+            </div>
+            <div class="first flex px-4">
+                <div class="h-6 w-6 rounded-full bg-blue-500"></div><p class="font-semibold mx-2">Public Holiday</p>
+            </div>
+            <div class="first flex px-4">
+                <div class="h-6 w-6 rounded-full bg-yellow-600"></div><p class="font-semibold mx-2">Off Day</p>
+            </div>
+            
+        </div>
     </div>
 </div>
 </template>
@@ -32,15 +47,13 @@ export default {
             monthName: null, // Get today's date in "YYYY-MM-DD" format
             token: null,
             attendanceTakenToday: null,
-            user: null
+            user: null,
+
         };
     },
     mounted() {
-
         this.user = window.localStorage.getItem('user')
-
         this.fetchAttendanceRecords();
-
     },
     computed: {
         calendarAttributes() {
@@ -76,10 +89,11 @@ export default {
     },
     methods: {
         async markAttendance(present) {
+            alert(present);
             if (!this.attendanceTakenToday) {
                 const attendanceRecord = {
                     date: this.today,
-                    present
+                    present: present
                 };
                 try {
                     await this.$axios.post(`${this.$URL}/add`, attendanceRecord);

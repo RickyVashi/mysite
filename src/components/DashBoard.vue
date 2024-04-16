@@ -30,7 +30,7 @@
             </div>
         </div>
     </div>
-   
+
 </div>
 <div class="hidden md:w-full  md:flex m-8 px-6 overflow-x-auto overflow-y-hidden">
     <div class="hidden md:w-1/5 md:block">
@@ -53,22 +53,22 @@
                 </div>
             </div> -->
         </div>
-    </div><div class="charts flex flex-col md:flex-row w-4/5">
+    </div>
+    <div class="charts flex flex-col md:flex-row w-4/5">
         <div class="mx-6">
             <apexchart ref="chart" type="bar" width="400" height="300" class="apex" :options="barOptions" :series="barData"></apexchart>
         </div>
-        
+
         <div class="mx-8">
             <apexchart ref="chart" type="donut" width="400" class="apex" :options="pieOptions" :series="pieData"></apexchart>
         </div>
     </div>
 </div>
-
-
 </template>
 
 <script>
 import ComponentName from './ComponentName.vue'
+
 
 export default {
     components: {
@@ -76,7 +76,7 @@ export default {
     },
     data() {
         return {
-            teacherFlag : false,
+            teacherFlag: false,
             dropdown: false,
             totalDays: 0,
             presentDays: 0,
@@ -142,8 +142,9 @@ export default {
         };
     },
     async mounted() {
-        const name = window.localStorage.getItem('user');
-        if(name == 'teacher'){
+        
+
+        if (name == 'teacher') {    
             this.teacherFlag = true;
         }
         try {
@@ -156,7 +157,8 @@ export default {
             this.pieData = [this.presentDays, this.absentDays];
 
             this.loading = false; // Corrected typo
-        } catch (error) {
+        } catch (error) 
+        { 
             if (error.response && error.response.status === 401) {
                 window.localStorage.clear();
             } else {
@@ -195,9 +197,9 @@ export default {
 
                 this.loading = false;
             } catch (error) {
+          
                 if (error.response && error.response.status === 401) {
                     window.localStorage.clear();
-                    location.reload();
                 } else {
                     console.error("Error:", error);
                 }

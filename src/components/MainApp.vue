@@ -10,72 +10,42 @@
         </div>
 
         <div class=" overflow-y-auto h-full overflow-x-hidden">
-            <!-- <div v-if="loading" class="timer my-10">
-                    <div class="skeleton-page flex flex-col items-center w-full px-10">
-                        <div class="bg-[#4547497a] w-full h-12 p-6 m-6 rounded-md"></div>
-                        <div class="row flex justify-center mb-8 rounded-lg">
-                            <div class="skeleton-item "></div>
-                            <div class="skeleton-item"></div>
-                            <div class="skeleton-item"></div>
-                        </div>
-                        <div class="row flex justify-center">
-                            <div class="skeleton-item"></div>
-                            <div class="skeleton-item"></div>
-                            <div class="skeleton-item"></div>
-                        </div>
-                    </div>
-                </div> -->
             <router-view />
         </div>
     </div>
 </div>
 
-<div class="h-screen md:hidden">
-    <div class="flex">
-        <div class="w-full fixed left-0 right-0 top-0 z-10">
-            <TopBar />
-        </div>
-    </div>
-    <div class="my-16">
-        <router-view></router-view>
-    </div>
-</div>
 </template>
 
     
 <script>
 import TopBar from './TopBar.vue'
 import SideBar from './SideBar.vue'
+import io from 'socket.io-client';
 
 export default {
     name: 'App',
     components: {
         SideBar,
         TopBar,
-
     },
-    data() {
-        return {
-            loading: true,
-            login: null,
-            attendanceRecords: [],
-            attendanceTakenToday: null,
-            today: new Date().toISOString().slice(0, 10),
-        }
+    mounted(){
+        this.socket = io('http://192.168.29.219:3000');
+        this.$store.state.socketInstance = this.socket;
+      
+        const email = window.localStorage.getItem('email');
+        const name = window.localStorage.getItem('user');
+
+        // Emit a custom event to notify the server of successful login
+        this.socket.emit('join', {
+            email: email,
+            name: name
+        });
+
+        this.socket.on('message:received', (data) => {
+            this.$store.state.messages.push(data);
+        });
     },
-    async beforeMount() {
-        this.login = window.localStorage.getItem('token');
-
-        const response = await this.$axios.get(`${this.$URL}/dates`);
-        this.attendanceRecords = response.data;
-        this.attendanceTakenToday = this.attendanceRecords.some(record => record.date === this.today);
-
-        if (this.attendanceTakenToday) {
-            window.localStorage.setItem('flag', 'true');
-        }
-
-    },
-
 }
 </script>
 

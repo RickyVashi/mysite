@@ -11,10 +11,8 @@ import Vuesax from 'vuesax3';
 import 'vuesax3/dist/vuesax.css';
 import axiosPlugin from './axios';
 import VueApexCharts from "vue3-apexcharts";
-//import VueFeather from 'vue-feather';
 import { FeatherIcon } from 'vue-feather-icons';
-//import vue3GoogleLogin from 'vue3-google-login'
-
+import GoogleSignInPlugin from "vue3-google-signin"
 
 // Set a global property to access environment variables
 
@@ -22,7 +20,8 @@ import { FeatherIcon } from 'vue-feather-icons';
 
 const app = createApp(App);
 
-app.config.globalProperties.$URL = "http://localhost:1600";
+ app.config.globalProperties.$URL = "http://localhost:1600";
+//app.config.globalProperties.$URL = "http://192.168.29.219:1600";
 
 app.directive('mask', mask);
 app.use(VCalendar);
@@ -31,7 +30,10 @@ app.use(store);
 app.use(Vuesax);
 app.use(VueApexCharts);
 app.use(axiosPlugin);
+app.use(GoogleSignInPlugin, {
+    clientId:  '955571392515-muemhvn6jok7v4vgqufj6vt5pblk2l0k.apps.googleusercontent.com',
 
+  });
 
 app.component('FeatherIcon', FeatherIcon);
 

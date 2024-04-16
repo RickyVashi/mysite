@@ -6,6 +6,7 @@ import CalenDar from '../components/CalenDar.vue';
 import AddProject from '../components/AddProject.vue';
 import ApexCharts from '../components/Project/ApexCharts.vue';
 import ChatApp from '../components/Project/ChatApp.vue';
+import ChatAppMain from '../components/Project/ChatAppMain.vue';
 import CurrencyTransfer from '../components/Project/CurrencyTransfer.vue';
 import DoubleList from '../components/Project/DoubleList.vue';
 import DropZone from '../components/Project/DropZone.vue';
@@ -29,12 +30,13 @@ import ProfilePage from '@/components/ProfilePage.vue';
 import MommentJs from '@/components/Project/MommentJs.vue';
 import AudioRecorder from '@/components/Project/AudioRecorder.vue';
 import TryExample from '@/components/Project/TryExample.vue';
+import MultiDatePicker from '@/components/Project/MultiDatePicker.vue';
 const routes = [
   {
-    path: '',
+    path: '',                                                                                                                                                                                                                                                                                                                                                                                                     
     component: MainApp,
     children: [
-      {path : '', redirect : '/dashboard' },
+      {path : '/',redirect:'/dashboard'},
       { path: '/dashboard', name: 'dashboard', component: Dashboard },
       { path: '/myschedule', name: 'myschedule', component: MySchedule },
       { path: '/projects', name: 'projects', component: ProjectS },
@@ -56,10 +58,12 @@ const routes = [
       { path: '/projects/AudioRecorder', name: 'AudioRecorder', component: AudioRecorder },
       { path: '/projects/TryExample', name: 'TryExample', component: TryExample},
       { path: '/projects/MommentJs', name: 'MommentJ', component: MommentJs },
+      { path: '/projects/MultiDatePicker', name: 'MultiDatePicker', component: MultiDatePicker },
       { path: '/calendar', name: 'calendar', component: CalenDar },
       { path: '/addProject', name: 'addProject', component: AddProject },
       { path: '/WeeklyReport', name: 'weeklyReport', component: WeeklyReport },
       { path: '/ProfilePage', name: 'ProfilePage', component:ProfilePage},
+      { path: '/chatapp', name: 'chatApp', component:ChatAppMain},
     ]
   },
   {
@@ -82,12 +86,12 @@ const router = createRouter({
 
 router.beforeEach((to,from,next) => {
 
-  if(to.name == 'Login'){
+  if(to.name == 'Login')
+  {
     const token = window.localStorage.getItem('token');
     if(token){
       next('/dashboard');
     }
-
   }
   if (!['Login', 'Signup', 'Forget'].includes(to.name)) {
     

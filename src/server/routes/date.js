@@ -62,10 +62,7 @@ router.post('/add', async (req, res) => {
 
                 // Extract data from request body
                 const { date, present } = req.body;
-
-                if (!date || !present) {
-                    return res.status(402).send('Missing date or present status');
-                }
+                console.log(present);
 
                 // Create a new date instance associated with the user
                 const newDate = new DateModel({
@@ -74,6 +71,7 @@ router.post('/add', async (req, res) => {
                     present
                 });
 
+                console.log(newDate);
                 // Save the new date to the database
                 await newDate.save();
 
