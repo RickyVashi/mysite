@@ -20,7 +20,7 @@ import GoogleSignInPlugin from "vue3-google-signin"
 
 const app = createApp(App);
 
- app.config.globalProperties.$URL = "http://localhost:1600";
+ app.config.globalProperties.$URL = "http://127.0.0.1:1600";
 //app.config.globalProperties.$URL = "http://192.168.29.219:1600";
 
 app.directive('mask', mask);

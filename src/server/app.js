@@ -16,9 +16,10 @@ connectToMongo();
 var registerRouter = require('./routes/register');
 var forgotUser = require('./routes/forget');
 var usersRouter = require('./routes/users');
-var addTask = require('./routes/project')
-var add = require('./routes/date')
-var book = require('./routes/books')
+var addTask = require('./routes/project');
+var add = require('./routes/date');
+var book = require('./routes/books');
+var payment = require('./routes/payment');
 
 var app = express();
 
@@ -69,7 +70,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use((req, res, next) => {
-  if (req.method === 'POST' && (req.path === '/submit' || req.path === '/register' || req.path === '/forget' || req.path === '/user')) {
+  if (req.method === 'POST' && ( req.path==='/placeOrder' ||req.path==='/process-payment' || req.path === '/verify' || req.path === '/submit' || req.path === '/register' || req.path === '/forget' || req.path === '/user')) {
     next(); // Skip verification for POST /submit route
   }else if(req.method === 'GET' && req.path === '/users'){
     next();
@@ -87,6 +88,7 @@ app.use('/', usersRouter);
 app.use('/', addTask);
 app.use('/', add);
 app.use('/', book);
+app.use('/', payment);
 
 app.listen(port, () => {
   console.log(`Server is running on ${port}`);

@@ -109,12 +109,10 @@ export default {
                 // Open the PDF file in a new tab
                 window.open(blobUrl, '_blank');
             } catch (error) {
-                if (error.response && error.response.status === 401) {
+               
                     window.localStorage.clear();
                     location.reload();
-                } else {
-                    console.error("Error:", error);
-                }
+               
             }
         }
 

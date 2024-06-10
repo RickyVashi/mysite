@@ -1,56 +1,57 @@
 <template>
-<div class="flex flex-row items-center  justify-between h-14 px-4 bg-[#F1FADA]">
-
+<div class="flex flex-row items-center justify-between h-14 px-4 bg-[#F1FADA]">
     <div class="items-center hidden md:flex">
-        <input type="text" placeholder="Search..." class="manual-search-input px-2 py-1 rounded-md border border-gray-300 focus:outline-none focus:border-blue-500">
+        <input type="text" placeholder="Search..." class="manual-search-input px-2 py-1 rounded-md border border-gray-300 focus:outline-none focus:border-blue-500" />
     </div>
-
     <div class="flex flex-grow items-center justify-start space-x-4 md:hidden">
         <button class="text-gray-700 hover:text-blue-500" @click="showMenu">
             <i v-if="!show" class="material-icons">menu</i>
             <i v-else class="material-icons">close</i>
         </button>
     </div>
-
     <div class="flex flex-row items-center justify-end space-x-4">
-        <button @click="route" class="text-gray-700 hover:text-blue-500" :class="flag == 'false' ? 'notalert' : 'alert'">
+        <button @click="account" class="text-gray-700 hover:text-blue-500">
+            <i class="material-icons">account_balance_wallet</i>
+        </button>
+        <button @click="initiatePayment" class="text-gray-700 hover:text-blue-500">
+            <i class="material-icons">payments</i>
+        </button>
+        <button @click="route" class="text-gray-700 hover:text-blue-500" :class="flag === 'false' ? 'notalert' : 'alert'">
             <i class="material-icons">notifications</i>
         </button>
-
         <button class="text-gray-700 hover:text-blue-500" @click="showRoute">
             <i class="material-icons">message</i>
         </button>
         <button @click="routeProfile" class="text-gray-700 block hover:text-blue-500 md:hidden">
-            <i class="material-icons">
-                account_circle</i>
+            <i class="material-icons">account_circle</i>
         </button>
         <button class="text-gray-700 hover:text-blue-500" @click="handleLogin">
             <i class="material-icons">exit_to_app</i>
         </button>
     </div>
-
 </div>
 <div v-if="show">
     <SideBar />
 </div>
 </template>
 
+
 <script>
-import router from '../router/route'
-import SideBar from './SideBar.vue'
+import router from '../router/route';
+import SideBar from './SideBar.vue';
+
 export default {
     data() {
         return {
             flag: null,
             show: false,
-        }
+            scriptURL: 'https://checkout.razorpay.com/v1/checkout.js'
+        };
     },
     components: {
-        SideBar
+        SideBar,
     },
-
     async mounted() {
-
         this.flag = window.localStorage.getItem('flag');
         console.log(this.flag);
 
@@ -62,25 +63,73 @@ export default {
         window.removeEventListener('keydown', this.handleKeyPress);
     },
     methods: {
+        async loadRazorpayScript() {
+            return new Promise((resolve, reject) => {
+                const script = document.createElement('script');
+                script.src = this.scriptURL;
+
+                script.onload = () => {
+                    resolve(true);
+                };
+
+                script.onerror = () => {
+                    reject(new Error("Failed to load RazorPay Script"));
+                }
+
+                document.body.appendChild(script);
+            })
+        },
+        async fetchOrderDetails() {
+            //API CALL
+            console.log("API CALL FOR FETCH ORDER DETAILS")
+        },
+
+        async initiatePayment() {
+           await this.loadRazorpayScript();
+           await this.fetchOrderDetails();
+
+           const options ={
+            key : 'rzp_test_3sN8VDOpp26OJt',
+            amount: 100,
+            currency:'INR',
+            name:'User Name',
+            description:'Payment Description',
+            // order_id: this.fetchOrderDetails.orderId,
+            handler :(response) =>{
+                this.handlePaymentSuccess(response);
+            },
+            prefill:{
+                name:"Ricky",
+                email:"vk2491638@gmail.com"
+            }
+           };
+           const razorpayInstance = new window.Razorpay(options);
+           razorpayInstance.open();
+        },
+        handlePaymentSuccess(){
+            console.log("Success");
+        },
         route() {
             if (!this.$store.state.flag) {
                 router.push({
-                    path: '/calendar'
-                })
+                    path: '/calendar',
+                });
             }
         },
+        account() {
+            router.push({
+                path: '/account',
+            });        
+        },
         showRoute() {
-            
-                router.push({
-                    path: '/chatapp'
-                })
-            
+            router.push({
+                path: '/chatapp',
+            });
         },
         routeProfile() {
-                router.push({
-                    path: '/ProfilePage'
-                })
-            
+            router.push({
+                path: '/ProfilePage',
+            });
         },
         handleLogin() {
             window.localStorage.clear();
@@ -104,11 +153,10 @@ export default {
             if (searchBar) {
                 searchBar.focus();
             }
-        }
+        },
     },
-}
+};
 </script>
-
 
 <style scoped>
 .alert {

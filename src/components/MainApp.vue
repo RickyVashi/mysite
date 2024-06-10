@@ -9,7 +9,7 @@
             <TopBar />
         </div>
 
-        <div class=" overflow-y-auto h-full overflow-x-hidden">
+        <div class=" overflow-y-auto h-full overflow-x-hidden scrollbar-hide">
             <router-view />
         </div>
     </div>
@@ -70,4 +70,14 @@ export default {
         background-position: 200px 0;
     }
 }
+
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* For IE, Edge and Firefox */
+  .scrollbar-hide {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
 </style>

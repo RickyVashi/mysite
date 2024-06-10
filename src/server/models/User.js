@@ -16,6 +16,13 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  otp: {
+    type: String,
+  },
+  currentBalance:{
+    type: Number,
+    default: 0
+  }
   // Add more fields as needed
 });
 

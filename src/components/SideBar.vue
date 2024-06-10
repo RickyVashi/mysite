@@ -53,6 +53,10 @@
             <i class="material-icons -ml-3 mr-3">report</i>
             <span>Weekly Reports</span>
         </router-link>
+        <router-link to="/products" active-class="clicked" class="flex text-lg items-center h-12 text-white pl-10 justify-left cursor-pointer ">
+            <i class="material-icons -ml-3 mr-3">category</i>
+            <span>Products</span>
+        </router-link>
     </div>
 
     <!-- Border -->
@@ -92,6 +96,10 @@
         <router-link to="/myschedule" active-class="clicked" class="flex text-lg items-center h-12 text-white pl-10 justify-left cursor-pointer ">
             <i class="material-icons -ml-3 mr-3">report</i>
             <span>Weekly Reports</span>
+        </router-link>
+        <router-link to="/products" active-class="clicked" class="flex text-lg items-center h-12 text-white pl-10 justify-left cursor-pointer ">
+            <i class="material-icons -ml-3 mr-3">category</i>
+            <span>Products</span>
         </router-link>
 </div>
 

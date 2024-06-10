@@ -31,7 +31,6 @@
                       <p>{{this.elapsedTime}}</p>
                   </button>
                   <div class="audioDisplay" v-else>
-                      <vue-wave-surfer :src="savedAudioUrl" :options="waveOptions" @ready="onWaveSurferReady"></vue-wave-surfer>
                       <button class="px-4 py-2 bg-blue-200 rounded-md" @click="playCall">Play/Pause</button>
                   </div>
                   <div id="waveform"></div>
@@ -48,12 +47,9 @@
   
   <script>
   import WaveSurfer from "wavesurfer.js";
-  import VueWaveSurfer from "vue-wave-surfer";
   
   export default {
-      components: {
-          VueWaveSurfer,
-      },
+
       data() {
           return {
               mediaRecorder: null,
@@ -67,7 +63,7 @@
               savedAudioUrl: null,
               savedTime: null,
               playaudio: false,
-              waverOptions: {
+              waveOptions: {
                   cursorColor: 'transparent',
                   progressColor: 'rgb(115,103,240)',
                   waveColor: 'rgb(115,103,240,.5)',
@@ -106,9 +102,6 @@
               } else {
                   console.log("WaveSurfer instance not found");
               }
-          },
-          onWaveSurferReady(waveSurfer) {
-              this.waveSurfer = waveSurfer;
           },
           async startRecording() {
               try {

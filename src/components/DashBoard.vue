@@ -200,6 +200,7 @@ export default {
           
                 if (error.response && error.response.status === 401) {
                     window.localStorage.clear();
+                    
                 } else {
                     console.error("Error:", error);
                 }

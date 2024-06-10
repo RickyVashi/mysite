@@ -89,7 +89,7 @@ export default {
     },
     methods: {
         async markAttendance(present) {
-            alert(present);
+       
             if (!this.attendanceTakenToday) {
                 const attendanceRecord = {
                     date: this.today,

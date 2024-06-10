@@ -31,6 +31,11 @@ import MommentJs from '@/components/Project/MommentJs.vue';
 import AudioRecorder from '@/components/Project/AudioRecorder.vue';
 import TryExample from '@/components/Project/TryExample.vue';
 import MultiDatePicker from '@/components/Project/MultiDatePicker.vue';
+import AccountPage from '../components/AccountPage.vue'
+import ProductPage from '@/components/Project/ProductPage.vue'
+
+
+
 const routes = [
   {
     path: '',                                                                                                                                                                                                                                                                                                                                                                                                     
@@ -60,9 +65,11 @@ const routes = [
       { path: '/projects/MommentJs', name: 'MommentJ', component: MommentJs },
       { path: '/projects/MultiDatePicker', name: 'MultiDatePicker', component: MultiDatePicker },
       { path: '/calendar', name: 'calendar', component: CalenDar },
+      { path: '/products', name: 'products', component: ProductPage },
       { path: '/addProject', name: 'addProject', component: AddProject },
       { path: '/WeeklyReport', name: 'weeklyReport', component: WeeklyReport },
       { path: '/ProfilePage', name: 'ProfilePage', component:ProfilePage},
+      { path: '/account', name: 'account', component:AccountPage},
       { path: '/chatapp', name: 'chatApp', component:ChatAppMain},
     ]
   },
